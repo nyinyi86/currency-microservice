@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multicurrency-app-v1
+  labels:
+    app: multicurrency-app-v1
+    version: v1
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: multicurrency-app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: multicurrency-app
+        version: v1
+    spec:
+      #serviceAccountName: bookinfo-productpage
+      containers:
+        - name: multicurrency
+          image: hashicorp/http-echo:1.0.0
+          imagePullPolicy: IfNotPresent
+          args:
+          - -listen=:1023
+          - "-text=Response from SG"
+        - name: multicurrency-2
+          image: hashicorp/http-echo:1.0.0
+          imagePullPolicy: IfNotPresent
+          args:
+          - -listen=:8082
+          - "-text=Response from SG 2"
