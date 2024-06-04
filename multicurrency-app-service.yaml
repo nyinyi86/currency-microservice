@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multicurrency-service
+  labels:
+    app: multicurrency-service
+    service: multicurrency-service
+spec:
+  ports:
+    - port: 80
+      name: multicurrency-app
+      protocol: TCP
+      targetPort: 1024
+    - port: 81
+      name: multicurrency-app2
+      protocol: TCP
+      targetPort: 8082
+  selector:
+    app: multicurrency-app
+    version: v1
